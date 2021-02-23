@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText editText;
     String username,password;
+    FirebaseApp firebaseApp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         username = editText.getText().toString();
         editText=findViewById(R.id.Password);
         password= editText.getText().toString();
+        firebaseApp = FirebaseApp.initializeApp(this);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Login details verified", Toast.LENGTH_SHORT).show();
                 }
-                else{
+                else if(task.isCanceled()){
                     Toast.makeText(getApplicationContext(), "Login ", Toast.LENGTH_SHORT).show();
                 }
             }

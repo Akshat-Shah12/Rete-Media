@@ -27,10 +27,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="120dp"
         android:layout_marginTop="382dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:background="@drawable/edittext"
-        android:hint="Login"
+        android:hint="Login Id"
         android:inputType="text"
-        android:textColorHint="@color/black" />
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/Password"
@@ -40,10 +42,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="120dp"
         android:layout_marginTop="467dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:background="@drawable/edittext"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColorHint="@color/black" />
+        android:textColorHint="@color/white" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,7 +57,7 @@
         android:layout_marginStart="13dp"
         android:layout_marginTop="26dp"
         android:onClick="forgotPassword"
-        android:text="Forgot password"
+        android:text="Forgot password?"
         android:textColor="#4a4a4a"
         android:textSize="12sp" />
 
