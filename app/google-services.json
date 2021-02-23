@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "610660499874",
+    "project_id": "rete-media",
+    "storage_bucket": "rete-media.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610660499874:android:927f0bd623c37ae7a172fb",
+        "android_client_info": {
+          "package_name": "com.retemedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610660499874-ns1fmpbftala9b4vpuq9ieknf8sva5as.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.retemedia",
+            "certificate_hash": "757df8c930a718e5bc065c96b98f1aa7cfab450c"
+          }
+        },
+        {
+          "client_id": "610660499874-u6o4vkvs41ac4r5ql9ktoio0o8htrunm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3hBM5eKm7UshfCTXjqG5uwPzE69soiWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610660499874-u6o4vkvs41ac4r5ql9ktoio0o8htrunm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
