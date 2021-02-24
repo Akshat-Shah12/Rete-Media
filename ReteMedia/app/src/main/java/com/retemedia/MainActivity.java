@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         username = editText.getText().toString();
         editText=findViewById(R.id.Password);
         password= editText.getText().toString();
-        firebaseApp = FirebaseApp.initializeApp(this);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 else if(task.isCanceled()){
                     Toast.makeText(getApplicationContext(), "Login ", Toast.LENGTH_SHORT).show();
                 }
+                else Toast.makeText(getApplicationContext(),"Incorrect password",Toast.LENGTH_SHORT).show();
             }
         });
     }
