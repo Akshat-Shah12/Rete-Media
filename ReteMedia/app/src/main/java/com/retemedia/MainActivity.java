@@ -3,6 +3,7 @@ package com.retemedia;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                             Map<String,Object> info = new HashMap<>();
                             info.put("Type",userType);
                             document.set(info);
+                            startActivity(new Intent(getApplicationContext(),Dashboard.class));
                         }
                     });
                 }
