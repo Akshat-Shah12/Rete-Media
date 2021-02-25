@@ -21,12 +21,14 @@ public class Dashboard extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private List<String> list;
+    private String type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         tabLayout = findViewById(R.id.tab);
         viewPager = findViewById(R.id.viewpager);
+        type = getIntent().getStringExtra("type");
         list = new ArrayList<String>();
         list.add("Chat");
         list.add("Work");
@@ -76,7 +78,8 @@ public class Dashboard extends AppCompatActivity {
         for(int i = 0; i < list.size(); i++)
         {
             Bundle bundle = new Bundle();
-            adapter.addFragment(new MainFragment(list.get(i)),(String) list.get(i));
+            if(list.get(i).equals("Chat")) adapter.addFragment(new ChatFragment(getApplicationContext()),list.get(i));
+            else adapter.addFragment(new MainFragment(list.get(i)),(String) list.get(i));
         }
         vp.setAdapter(adapter);
     }

@@ -70,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
                             Map<String,Object> info = new HashMap<>();
                             info.put("Type",userType);
                             document.set(info);
-                            startActivity(new Intent(getApplicationContext(),Dashboard.class));
+                            Intent intent = new Intent(getApplicationContext(),Dashboard.class);
+                            intent.putExtra("type",userType);
+                            startActivity(intent);
                         }
                     });
                 }
