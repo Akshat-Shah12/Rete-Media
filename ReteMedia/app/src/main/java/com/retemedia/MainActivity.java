@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         editText=findViewById(R.id.Password);
         password= editText.getText().toString();
         FirebaseAuth auth = FirebaseAuth.getInstance();
+        if(username.trim().length()==0||password.trim().length()<6)
+        {
+            Toast.makeText(getApplicationContext(),"Invalid Credentials",Toast.LENGTH_SHORT).show();
+            return;
+        }
         auth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
