@@ -56,26 +56,38 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         document = firestore.collection("Users").document(username);
-        //auth.signInWithEmailAndPassword(username,password);
-        document.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        auth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                try {
-                    if (password.equals(documentSnapshot.getString("Password")))
-                    {
-                        Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(),Dashboard.class);
-                        intent.putExtra("type",userType);
-                        intent.putExtra("id",username);
-                        startActivity(intent);
-                    }
-                    else Toast.makeText(getApplicationContext(),"Incorrect Password",Toast.LENGTH_SHORT).show();
-                } catch (Exception exception) {
-                    Toast.makeText(getApplicationContext(),"User doesn't exist",Toast.LENGTH_SHORT).show();
-                    exception.printStackTrace();
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Login details verified", Toast.LENGTH_SHORT).show();
+                    user = auth.getCurrentUser();
+                    document = firestore.collection("Users").document(username);
+                    document.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            try {
+                                Toast.makeText(getApplicationContext(), documentSnapshot.getString("Type"), Toast.LENGTH_SHORT);
+                                userType = documentSnapshot.getString("Type");
+                                Toast.makeText(getApplicationContext(), userType, Toast.LENGTH_SHORT).show();
+                            } catch (Exception exception) {
+                                exception.printStackTrace();
+                                userType = "Employee";
+                            }
+                            Map<String, Object> info = new HashMap<>();
+                            info.put("Type", userType);
+                            document.set(info);
+                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                            intent.putExtra("type", userType);
+                            startActivity(intent);
+                        }
+                    });
                 }
+                else if(task.isCanceled()){
+                    Toast.makeText(getApplicationContext(), "Login ", Toast.LENGTH_SHORT).show();
+                }
+                else Toast.makeText(getApplicationContext(),"Incorrect password",Toast.LENGTH_SHORT).show();
             }
         });
-        Toast.makeText(getApplicationContext(),"Password : "+password,Toast.LENGTH_SHORT).show();
     }
 }
