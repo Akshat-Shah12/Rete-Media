@@ -8,75 +8,89 @@
     tools:context=".MainActivity">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/rete_media_logo" />
-
-
-    <EditText
-        android:id="@+id/LoginId"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="382dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:background="@drawable/edittext"
-        android:hint="Login Id"
-        android:inputType="text"
-        android:textColorHint="@color/white" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/Password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="467dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:background="@drawable/edittext"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColorHint="@color/white" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Password"
-        android:layout_alignStart="@id/Password"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="26dp"
-        android:onClick="forgotPassword"
-        android:text="Forgot password?"
-        android:textColor="#4a4a4a"
-        android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/submitBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/sumitbutton"
-        android:gravity="center"
-        android:onClick="submitBtn"
-        android:text="Submit"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="100dp"
+                android:src="@drawable/rete_media_logo" />
+
+            <EditText
+                android:id="@+id/LoginId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/edittext"
+                android:hint="Login Id"
+                android:inputType="text"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColorHint="@color/white" />
+
+            <EditText
+                android:id="@+id/Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/edittext"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColorHint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Password"
+                android:layout_alignStart="@id/Password"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="16dp"
+                android:onClick="forgotPassword"
+                android:text="Forgot password?"
+                android:textColor="#4a4a4a"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/submitBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="60dp"
+                android:background="@drawable/sumitbutton"
+                android:gravity="center"
+                android:onClick="submitBtn"
+                android:text="Submit"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
