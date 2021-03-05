@@ -10,22 +10,19 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:layout_margin="10dp"/>
+        android:background="#FFD027">//@android:color/holo_blue_dark
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:src="@drawable/rete_media_logo"></ImageView>
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
-        app:tabIndicatorColor="@color/white"
-        app:tabTextColor="@color/white"
+        android:background="#FFD027"
+        app:tabIndicatorColor="@color/black"
+        app:tabTextColor="@color/black"
         app:tabMode="fixed"
         android:id="@+id/tab"/>
     <androidx.viewpager.widget.ViewPager

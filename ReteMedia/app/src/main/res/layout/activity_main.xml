@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#ffffff"
     tools:context=".MainActivity">
 
 
@@ -20,13 +20,12 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="366dp"
+                android:layout_height="320dp"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="100dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="0dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginBottom="0dp"
                 android:src="@drawable/rete_media_logo" />
 
             <EditText
@@ -52,7 +51,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="40dp"
                 android:background="@drawable/edittext"
                 android:hint="Password"
@@ -67,7 +66,7 @@
                 android:layout_below="@id/Password"
                 android:layout_alignStart="@id/Password"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:onClick="forgotPassword"
                 android:text="Forgot password?"
                 android:textColor="#4a4a4a"
@@ -80,7 +79,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="60dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="60dp"
                 android:background="@drawable/sumitbutton"
                 android:gravity="center"

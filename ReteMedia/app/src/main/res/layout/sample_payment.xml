@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs.10000"
+                android:id="@+id/money"
+                android:textStyle="bold
+"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="30sp"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cash"
+                android:id="@+id/payMet"
+                android:layout_below="@id/money"
+                android:layout_alignStart="@id/money"
+                android:textColor="@android:color/holo_blue_light"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="05/11/20"
+                android:layout_below="@id/money"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black"
+                android:layout_below="@id/payMet"
+                android:layout_marginTop="2dp"/>
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
