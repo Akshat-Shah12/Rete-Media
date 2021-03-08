@@ -29,7 +29,7 @@ public class ChatFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.chat_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        MessageAdapter adapter = new MessageAdapter(data);
+        MessageAdapter adapter = new MessageAdapter(data,context);
         recyclerView.setAdapter(adapter);
         return view;
     }

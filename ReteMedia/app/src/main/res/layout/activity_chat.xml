@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6E6E6"
+    tools:context=".ChatActivity">
+    <Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:background="#FFD027"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/groupIcon"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="25dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/blank_profile"/>
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Graphic Department"
+                android:textSize="20sp"
+                android:layout_toEndOf="@id/groupIcon"
+                android:layout_marginStart="20dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/TopicText"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+    </Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="-1dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        android:layout_margin="12dp"
+        android:id="@+id/messageBox"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@id/send">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#00000000"
+            android:hint="Type a message"
+            android:textSize="20sp"
+            android:id="@+id/messageToSend"
+            android:textColorHint="@android:color/darker_gray"/>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#22701A"
+        android:layout_alignBottom="@id/messageBox"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="9dp"
+        android:id="@+id/send">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_send_24"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginBottom="13dp"
+            />
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
