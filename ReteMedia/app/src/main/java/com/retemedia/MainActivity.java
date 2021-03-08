@@ -50,12 +50,17 @@ public class MainActivity extends AppCompatActivity {
         editText=findViewById(R.id.Password);
         password= editText.getText().toString();
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        if(username.trim().length()==0||password.trim().length()<6)
+        /*if(username.trim().length()==0||password.trim().length()<6)
         {
             Toast.makeText(getApplicationContext(),"Invalid Credentials",Toast.LENGTH_SHORT).show();
             return;
-        }
-        document = firestore.collection("Users").document(username);
+        }*/
+        /////temporary open
+        Intent intent = new Intent(this, Dashboard.class);
+        intent.putExtra("type", "user1");
+        startActivity(intent);
+        overridePendingTransition(R.anim.right_start,R.anim.right_end);
+        /*document = firestore.collection("Users").document(username);
         auth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -77,9 +82,10 @@ public class MainActivity extends AppCompatActivity {
                             Map<String, Object> info = new HashMap<>();
                             info.put("Type", userType);
                             document.set(info);
-                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                            *//*Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                             intent.putExtra("type", userType);
-                            startActivity(intent);
+                            startActivity(intent);*//*
+                            finish();
                         }
                     });
                 }
@@ -88,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else Toast.makeText(getApplicationContext(),"Incorrect password",Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
+
+        /////remove this when u remove the above comment
+        finish();
     }
 }

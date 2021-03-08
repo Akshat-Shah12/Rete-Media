@@ -1,5 +1,7 @@
 package com.retemedia;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
     private MessageData[] messageData;
     private ViewHolder holder;
-    public MessageAdapter(MessageData[] messageData)
+    private Context context;
+    public MessageAdapter(MessageData[] messageData,Context context)
     {
         this.messageData = messageData;
+        this.context=context;
     }
     @NonNull
     @Override
@@ -30,6 +34,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         this.holder = holder;
         holder.title.setText(messageData[position].getTitle());
         holder.message.setText(messageData[position].getMessage());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context,ChatActivity.class);
+                i.putExtra("name",messageData[position].getTitle());
+                i.putExtra("photo",messageData[position].getImageURL());
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
