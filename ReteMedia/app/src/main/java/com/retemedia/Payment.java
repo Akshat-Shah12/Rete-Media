@@ -21,16 +21,16 @@ public class Payment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.chat,container,false);
-        MessageData data[] = new MessageData[10];
+        View view = inflater.inflate(R.layout.payment_frag,container,false);
+        PaymentData data[] = new PaymentData[10];
         for(int i=0;i<10;i++)
         {
-            data[i] = new MessageData(null,"Topic "+(i+1),"Do it ASAP");
+            data[i] = new PaymentData("Google Pay","05/06/20",i*1000);
         }
-        RecyclerView recyclerView = view.findViewById(R.id.chat_recycler);
+        RecyclerView recyclerView = view.findViewById(R.id.allPayments);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        MessageAdapter adapter = new MessageAdapter(data);
+        PaymentAdapter adapter = new PaymentAdapter(data);
         recyclerView.setAdapter(adapter);
         return view;
     }

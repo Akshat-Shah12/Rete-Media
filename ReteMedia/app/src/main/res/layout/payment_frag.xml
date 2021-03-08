@@ -7,6 +7,7 @@
         android:layout_height="wrap_content"
         android:text="Total Payment Left : Rs.2000"
         android:textColor="@android:color/holo_red_light"
+        android:background="#E8E8E8"
         android:textAlignment="center"
         android:id="@+id/leftPayment"
         android:textSize="20sp"

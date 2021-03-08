@@ -22,16 +22,15 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chat, container, false);
-        PaymentData data[] = new PaymentData[10];
+        MessageData data[] = new MessageData[10];
         for (int i = 0; i < 10; i++) {
-            data[i] = new PaymentData("Cash", "04/05/21", 1000 * i);
+            data[i] = new MessageData("adk","Heading"+i,"Message ASAP");
         }
-        /*RecyclerView recyclerView = view.findViewById(R.id.allPayments);
+        RecyclerView recyclerView = view.findViewById(R.id.chat_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         MessageAdapter adapter = new MessageAdapter(data);
         recyclerView.setAdapter(adapter);
-        return view;*/
         return view;
     }
 }
