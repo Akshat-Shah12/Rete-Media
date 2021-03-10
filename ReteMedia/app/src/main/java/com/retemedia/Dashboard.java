@@ -80,6 +80,7 @@ public class Dashboard extends AppCompatActivity {
             Bundle bundle = new Bundle();
             if(list.get(i).equals("Chat")) adapter.addFragment(new ChatFragment(getApplicationContext()),list.get(i));
             else if(list.get(i).equals("Payment")) adapter.addFragment(new Payment(getApplicationContext()),list.get(i));
+            else if(list.get(i).equals("Stats")) adapter.addFragment(new Stats(getApplicationContext()),list.get(i));
             else adapter.addFragment(new MainFragment(list.get(i)),(String) list.get(i));
         }
         vp.setAdapter(adapter);
