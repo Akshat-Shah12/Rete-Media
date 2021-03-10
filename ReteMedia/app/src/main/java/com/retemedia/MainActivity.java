@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -65,6 +66,19 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Login details verified", Toast.LENGTH_SHORT).show();
                     user = auth.getCurrentUser();
                     document = firestore.collection("Users").document(username);
+                    document.get().addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Map<String, Object> info = new HashMap<>();
+                            info.put("Type", userType);
+                            document.set(info);
+                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                            intent.putExtra("type", "user1");
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.right_start,R.anim.right_end);
+                            finish();
+                        }
+                    });
                     document.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
