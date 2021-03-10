@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E6E6E6"
+    android:background="@drawable/retebackground"
     tools:context=".ChatActivity">
     <Toolbar
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
                 android:layout_alignParentTop="true"
                 android:id="@+id/groupIcon"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
                 app:cardCornerRadius="25dp">
                 <ImageView
                     android:layout_width="match_parent"
@@ -56,17 +56,19 @@
         android:id="@+id/messageBox"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@id/send">
+
         <EditText
-            android:layout_width="wrap_content"
+            android:id="@+id/messageToSend"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
             android:backgroundTint="#00000000"
             android:hint="Type a message"
-            android:textSize="20sp"
-            android:id="@+id/messageToSend"
-            android:textColorHint="@android:color/darker_gray"/>
+            android:maxHeight="200dp"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="20sp" />
 
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
