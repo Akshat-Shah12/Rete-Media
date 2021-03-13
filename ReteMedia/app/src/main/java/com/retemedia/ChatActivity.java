@@ -3,7 +3,10 @@ package com.retemedia;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -15,4 +18,8 @@ public class ChatActivity extends AppCompatActivity {
         textView.setText(getIntent().getStringExtra("name"));
     }
 
+    /*public void sendMessage(View view)
+    {
+        FirebaseFirestore
+    }*/
 }
