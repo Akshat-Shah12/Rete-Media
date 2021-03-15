@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReteMedia">
-        <activity android:name=".ChatActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+        <activity android:name=".AddPaymentActivity"></activity>
+        <activity
+            android:name=".ChatActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".Dashboard"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

@@ -19,8 +19,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private ChatAdapter.ViewHolder holder;
     private Context context;
     private long time;
+<<<<<<< HEAD
     private int day,month;
     private int position;
+=======
+    private int day,month,year;
+>>>>>>> fb092ed506f93245844933c7b74d73be966843b0
     public ChatAdapter(ChatData[] chatData){this.chatData=chatData;}
     @NonNull
     @Override
@@ -42,19 +46,32 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         holder.setIsRecyclable(false);
         this.position=position;
         String temp = chatData[position].getMessage();
+<<<<<<< HEAD
         //akshat@rete.com\t12602134521\tyourMessage//
+=======
+
+        //akshat@rete.com126021\t34521\tyourMessage//
+>>>>>>> fb092ed506f93245844933c7b74d73be966843b0
 
         String timeString = temp.substring(temp.indexOf('\t')+1);
         timeString = timeString.substring(0,timeString.indexOf('\t'));
         time=Long.parseLong(timeString);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
+<<<<<<< HEAD
         if(calendar.get(Calendar.DAY_OF_MONTH)!=day||calendar.get(Calendar.MONTH)+1!=month||position==0){
             day=calendar.get(Calendar.DAY_OF_MONTH);
             month=calendar.get(Calendar.MONTH)+1;
             String date_to_set = day+"/"+month+"/"+calendar.get(Calendar.YEAR);
             holder.date_text.setText(date_to_set);
             holder.date.setVisibility(View.VISIBLE);
+=======
+        if(calendar.get(Calendar.DAY_OF_MONTH)!=day||calendar.get(Calendar.MONTH)+1!=month|| calendar.get(Calendar.YEAR)!=year){
+            day=calendar.get(Calendar.DAY_OF_MONTH);
+            month=calendar.get(Calendar.MONTH)+1;
+            year=calendar.get(Calendar.YEAR);
+            holder.date_text.setText(day+"/"+month+"/"+calendar.get(Calendar.YEAR));
+>>>>>>> fb092ed506f93245844933c7b74d73be966843b0
         }
         String text = chatData[position].getMessage();
         text=text.substring(text.indexOf('\t')+1);
