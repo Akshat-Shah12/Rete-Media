@@ -18,6 +18,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private Context context;
     private long time;
     private int day,month;
+    public ChatAdapter(ChatData[] chatData){this.chatData=chatData;}
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,7 +35,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         //akshat@rete.com\t12602134521\tyourMessage//
 
-        time=Long.parseLong(temp.substring(temp.indexOf('\t')+1,temp.substring(temp.indexOf('\t')+1).indexOf('\t')));
+        String timeString = temp.substring(temp.indexOf('\t')+1);
+        timeString = timeString.substring(0,timeString.indexOf('\t'));
+        time=Long.parseLong(timeString);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         if(calendar.get(Calendar.DAY_OF_MONTH)!=day||calendar.get(Calendar.MONTH)+1!=month){
@@ -43,34 +46,51 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.date_text.setText(day+"/"+month+"/"+calendar.get(Calendar.YEAR));
         }
         else holder.date.setVisibility(View.GONE);
+        String text = chatData[position].getMessage();
+        text=text.substring(text.indexOf('\t')+1);
+        text=text.substring(text.indexOf('\t')+1);
+        String message_time = "";
+        if(calendar.get(Calendar.HOUR_OF_DAY)<10) message_time=message_time+"0";
+        message_time=message_time+calendar.get(Calendar.HOUR_OF_DAY)+":";
+        if(calendar.get(Calendar.MINUTE)<10) message_time=message_time+"0";
+        message_time=message_time+calendar.get(Calendar.MINUTE);
         if(chatData[position].getMessage().substring(0,chatData[position].getMessage().indexOf('\t')).equals(chatData[position].getUsername()))
         {
             holder.received.setVisibility(View.GONE);
-            //set text here
+            holder.sent_message.setText(text);
+            holder.sent_time.setText(message_time);
         }
         else
         {
             holder.sent.setVisibility(View.GONE);
-            //set text here
+            String name = chatData[position].getMessage();
+            name=name.substring(0,name.indexOf('@'));
+            name=name.substring(0,1).toUpperCase()+name.substring(1);
+            holder.sender.setText(name);
+            holder.received_message.setText(text);
+            holder.received_time.setText(message_time);
         }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return chatData.length;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         RelativeLayout date,sent,received;
-        TextView date_text,sent_message,received_message;
+        TextView date_text,sent_message,received_message,sender,received_time,sent_time;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             sent=itemView.findViewById(R.id.sent_message);
             received=itemView.findViewById(R.id.received_message);
             date=itemView.findViewById(R.id.date_layout);
             date_text=itemView.findViewById(R.id.date);
+            sender=itemView.findViewById(R.id.sender_text);
             sent_message=itemView.findViewById(R.id.sent_message_text);
             received_message=itemView.findViewById(R.id.received_message_text);
+            sent_time=itemView.findViewById(R.id.sent_time);
+            received_time=itemView.findViewById(R.id.received_time);
         }
     }
 }
