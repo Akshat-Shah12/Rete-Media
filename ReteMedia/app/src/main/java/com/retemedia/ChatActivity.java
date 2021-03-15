@@ -1,5 +1,6 @@
 package com.retemedia;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,11 +27,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity{
 
     private FirebaseFirestore firestore;
     private DocumentReference documentReference;
     private EditText editText;
+    private DatabaseReference databaseReference;
     private ChatData[] chatData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,18 @@ public class ChatActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         documentReference = firestore.collection("Topics").document(getIntent().getStringExtra("name"));
         editText = findViewById(R.id.messageToSend);
+        databaseReference=FirebaseDatabase.getInstance().getReference(getIntent().getStringExtra("name"));
+        databaseReference.child(UserInfo.getUsername()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                loadMessages();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         loadMessages();
     }
 
@@ -58,10 +77,10 @@ public class ChatActivity extends AppCompatActivity {
                 }
                 if(editText.getText().toString().trim().length()>0) map.put("message"+(message_count+1),UserInfo.getUsername()+"\t"+
                         System.currentTimeMillis()+"\t"+editText.getText().toString());
-                else{
+                /*else{
                     Toast.makeText(getApplicationContext(),"Can't send empty message",Toast.LENGTH_SHORT).show();
                     return;
-                }
+                }*/
                 map.put("count",String.valueOf(message_count+1));
                 Log.println(Log.ASSERT,"message",UserInfo.getUsername()+"\t"+
                         System.currentTimeMillis()+"\t"+editText.getText().toString());

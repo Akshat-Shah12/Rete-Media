@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/page"
     android:background="@drawable/retebackground">
 
     <TextView
@@ -18,5 +21,28 @@
         android:layout_height="match_parent"
         android:layout_below="@id/leftPayment"
         android:id="@+id/allPayments"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/addPayment"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="paymentAdd"
+        app:cardBackgroundColor="#3D1F6E"
+        app:cardCornerRadius="40dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:src="@drawable/ic_baseline_add_24" />
+
+    </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

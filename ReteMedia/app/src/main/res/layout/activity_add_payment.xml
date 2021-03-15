@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddPaymentActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount:"
+        android:textColor="@color/black"
+        android:layout_alignStart="@id/amount"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        android:id="@+id/textAmount"
+        android:layout_marginTop="100dp"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#00000000"
+        android:hint="Amount"
+        android:id="@+id/amount"
+        android:layout_below="@id/textAmount"
+        android:background="@drawable/edittext"
+        android:inputType="text"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColorHint="@color/white"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Method of Payment:"
+        android:textColor="@color/black"
+        android:layout_alignStart="@id/pay"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        android:id="@+id/methodText"
+        android:layout_marginTop="250dp"/>
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#00000000"
+        android:id="@+id/pay"
+        android:layout_below="@id/methodText"
+        android:background="@drawable/edittext"
+        android:hint="Method of Payment"
+        android:inputType="text"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColorHint="@color/white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_alignTop="@id/button2"
+        android:text="kad jkd"
+        android:id="@+id/dateText"
+        android:layout_marginTop="-30dp"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="handleDateButton"
+        android:layout_marginTop="400dp"
+        android:layout_centerHorizontal="true"
+        android:text="Date" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="submitBtn"
+        android:layout_marginTop="500dp"
+        android:layout_centerHorizontal="true"
+        android:text="Submit" />
+
+
+
+
+
+</RelativeLayout>
