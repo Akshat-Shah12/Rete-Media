@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,8 +66,12 @@ public class ChatActivity extends AppCompatActivity {
                 map.put("count",String.valueOf(message_count+1));
                 Log.println(Log.ASSERT,"message",UserInfo.getUsername()+"\t"+
                         System.currentTimeMillis()+"\t"+editText.getText().toString());
-                documentReference.set(map);
-                loadMessages();
+                documentReference.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        loadMessages();
+                    }
+                });
                 editText.setText("");
             }
         });
@@ -94,14 +99,11 @@ public class ChatActivity extends AppCompatActivity {
                     chatData[i] = new ChatData(UserInfo.getUsername(),documentSnapshot.get("message"+(i+1)).toString());
                 }
                 ChatAdapter adapter = new ChatAdapter(chatData);
-                Log.println(Log.ASSERT,"messages","loaded");
-                recyclerView.setVisibility(View.INVISIBLE);
                 recyclerView.setAdapter(adapter);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
-                        recyclerView.setVisibility(View.VISIBLE);
                     }
                 },200);
             }
