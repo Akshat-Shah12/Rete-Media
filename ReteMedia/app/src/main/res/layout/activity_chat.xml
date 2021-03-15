@@ -46,7 +46,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_marginTop="-1dp" />
+        android:layout_above="@id/messageBox"
+        android:layout_marginTop="3dp"
+        android:id="@+id/chat_messages"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -66,6 +68,7 @@
             android:layout_marginEnd="10dp"
             android:backgroundTint="#00000000"
             android:hint="Type a message"
+            android:inputType="textMultiLine|textCapSentences"
             android:maxHeight="200dp"
             android:textColorHint="@android:color/darker_gray"
             android:textSize="20sp" />
@@ -79,7 +82,8 @@
         android:layout_alignBottom="@id/messageBox"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="9dp"
-        android:id="@+id/send">
+        android:id="@+id/send"
+        android:onClick="sendMessage">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

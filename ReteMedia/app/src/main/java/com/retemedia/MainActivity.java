@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         firestore = FirebaseFirestore.getInstance();
-
         //findViewById(R.id.submitBtn).setBackgroundColor(Color.parseColor("#1E88E5"));
     }
     public void forgotPassword(View view){
@@ -93,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             Map<String, Object> info = new HashMap<>();
                             info.put("Type", userType);
                             document.set(info);
+                            UserInfo.setUsername(username);
                             Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                             intent.putExtra("type", "user1");
                             startActivity(intent);

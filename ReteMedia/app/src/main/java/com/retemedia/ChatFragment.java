@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ChatFragment extends Fragment {
     private Context context;
+    public ChatFragment(){}
     public ChatFragment(Context context)
     {
         this.context = context;
