@@ -17,7 +17,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private ChatAdapter.ViewHolder holder;
     private Context context;
     private long time;
-    private int day,month;
+    private int day,month,year;
     public ChatAdapter(ChatData[] chatData){this.chatData=chatData;}
     @NonNull
     @Override
@@ -33,16 +33,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         this.holder=holder;
         String temp = chatData[position].getMessage();
 
-        //akshat@rete.com\t12602134521\tyourMessage//
+        //akshat@rete.com126021\t34521\tyourMessage//
 
         String timeString = temp.substring(temp.indexOf('\t')+1);
         timeString = timeString.substring(0,timeString.indexOf('\t'));
         time=Long.parseLong(timeString);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        if(calendar.get(Calendar.DAY_OF_MONTH)!=day||calendar.get(Calendar.MONTH)+1!=month){
+        if(calendar.get(Calendar.DAY_OF_MONTH)!=day||calendar.get(Calendar.MONTH)+1!=month|| calendar.get(Calendar.YEAR)!=year){
             day=calendar.get(Calendar.DAY_OF_MONTH);
             month=calendar.get(Calendar.MONTH)+1;
+            year=calendar.get(Calendar.YEAR);
             holder.date_text.setText(day+"/"+month+"/"+calendar.get(Calendar.YEAR));
         }
         else holder.date.setVisibility(View.GONE);

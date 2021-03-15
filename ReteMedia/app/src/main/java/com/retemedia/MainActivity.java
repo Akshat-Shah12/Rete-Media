@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Login details verified", Toast.LENGTH_SHORT).show();
                     user = auth.getCurrentUser();
                     document = firestore.collection("Users").document(username);
-                    document.get().addOnFailureListener(new OnFailureListener() {
+                    /*document.get().addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Map<String, Object> info = new HashMap<>();
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                             overridePendingTransition(R.anim.right_start,R.anim.right_end);
                             finish();
                         }
-                    });
+                    });*/
                     document.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -104,7 +104,10 @@ public class MainActivity extends AppCompatActivity {
                 else if(task.isCanceled()){
                     Toast.makeText(getApplicationContext(), "Login ", Toast.LENGTH_SHORT).show();
                 }
-                else Toast.makeText(getApplicationContext(),"Incorrect password",Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(getApplicationContext(),"Incorrect password",Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
