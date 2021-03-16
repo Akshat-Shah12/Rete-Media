@@ -36,23 +36,26 @@ public class ChatActivity extends AppCompatActivity{
     private EditText editText;
     private ChatData[] chatData;
     private int message_count;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        TextView textView = findViewById(R.id.TopicText);
+        recyclerView = findViewById(R.id.chat_messages);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));    TextView textView = findViewById(R.id.TopicText);
         textView.setText(getIntent().getStringExtra("name"));
         firestore = FirebaseFirestore.getInstance();
         documentReference = firestore.collection("Topics").document(getIntent().getStringExtra("name"));
         editText = findViewById(R.id.messageToSend);
         loadMessages();
     }
-
     public void sendMessage(View view)
     {
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
                 try {
                     message_count = Integer.parseInt(documentSnapshot.get("count").toString());
                     } catch (Exception e) {
@@ -74,7 +77,6 @@ public class ChatActivity extends AppCompatActivity{
                             FirebaseDatabase.getInstance().goOnline();
                             map.put("message" + (message_count + 1), UserInfo.getUsername() + "\t" +
                                     (System.currentTimeMillis() + snapshot.getValue(Long.class)) + "\t" + message);
-                            Log.println(Log.ASSERT, "offset", snapshot.getValue(Long.class).toString());
                             FirebaseDatabase.getInstance().goOffline();
                         }
                         else {
@@ -100,15 +102,13 @@ public class ChatActivity extends AppCompatActivity{
         });
     }
 
+
     private void loadMessages() {
         if(UserInfo.getUsername()==null)
         {
             finish();
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }
-        RecyclerView recyclerView = findViewById(R.id.chat_messages);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -121,7 +121,7 @@ public class ChatActivity extends AppCompatActivity{
                 {
                     chatData[i] = new ChatData(UserInfo.getUsername(),documentSnapshot.get("message"+(i+1)).toString());
                 }
-                chatData[0].setDateChanged(true);
+                if(chatData.length>0) chatData[0].setDateChanged(true);
                 //akshat@rete.com\t12602134521\tyourMessage//
                 for(int i=0;i<chatData.length-1;i++)
                 {
@@ -142,31 +142,7 @@ public class ChatActivity extends AppCompatActivity{
                 }
                 ChatAdapter adapter = new ChatAdapter(chatData);
                 recyclerView.setAdapter(adapter);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
-                    }
-                },200);
-            }
-        });
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        databaseReference =  FirebaseDatabase.getInstance().getReference(".info/serverTimeOffset");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                FirebaseDatabase.getInstance().goOnline();
-                Log.println(Log.ASSERT,"resumed_offset",snapshot.getValue(Long.class).toString());
-                FirebaseDatabase.getInstance().goOffline();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
             }
         });
     }
