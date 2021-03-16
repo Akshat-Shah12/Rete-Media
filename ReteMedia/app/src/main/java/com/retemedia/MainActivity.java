@@ -49,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
         username = editText.getText().toString();
         editText=findViewById(R.id.Password);
         password= editText.getText().toString();
+        ////
+        if(username.length()==0 && password.length()==0){
+            Intent intent = new Intent(getApplicationContext(), AddPaymentActivity.class);
+            startActivity(intent);
+        }
+        ////
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if(username.trim().length()==0||password.trim().length()<6)
         {
