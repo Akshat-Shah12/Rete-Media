@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="1/1/2021"
-                android:textSize="18sp"
+                android:textSize="13sp"
                 android:textColor="@android:color/black"
                 android:id="@+id/date"
                 android:layout_margin="5dp"/>
@@ -47,7 +47,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/sender_text"
-                    android:textSize="10sp"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="13sp"
                     android:layout_marginStart="10dp"
                     android:textColor="@android:color/holo_red_light"/>
                 <TextView
@@ -57,7 +58,7 @@
                     android:layout_below="@id/sender_text"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:textSize="13sp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -93,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/sent_message_text"
                     android:layout_margin="7dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textColor="@color/black" />
                 <TextView
                     android:layout_width="wrap_content"

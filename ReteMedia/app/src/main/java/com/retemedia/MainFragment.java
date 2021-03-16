@@ -25,6 +25,7 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private String title;
+    public MainFragment(){}
 
     public MainFragment(String str) {
         // Required empty public constructor

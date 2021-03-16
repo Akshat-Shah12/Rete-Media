@@ -19,7 +19,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private ChatAdapter.ViewHolder holder;
     private Context context;
     private long time;
-    private int day,month;
+    private int day,month,year;
     private int position;
     public ChatAdapter(ChatData[] chatData){this.chatData=chatData;}
     @NonNull
@@ -36,6 +36,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         return position;
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder,final int position) {
         this.holder=holder;
@@ -49,10 +50,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         time=Long.parseLong(timeString);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        if(calendar.get(Calendar.DAY_OF_MONTH)!=day||calendar.get(Calendar.MONTH)+1!=month||position==0){
+        if(chatData[position].isDateChanged()){
             day=calendar.get(Calendar.DAY_OF_MONTH);
             month=calendar.get(Calendar.MONTH)+1;
-            String date_to_set = day+"/"+month+"/"+calendar.get(Calendar.YEAR);
+            year=calendar.get(Calendar.YEAR);
+            String date_to_set = day + "/" + month + "/" + calendar.get(Calendar.YEAR);
             holder.date_text.setText(date_to_set);
             holder.date.setVisibility(View.VISIBLE);
         }
