@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            app:cardBackgroundColor="#D8F472"
+            app:cardBackgroundColor="#E0F68F"
             app:cardCornerRadius="5dp">
             <RelativeLayout
                 android:layout_width="wrap_content"

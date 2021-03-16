@@ -15,14 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:id="@+id/groupIcon"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="25dp">
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="30dp">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Graphic Department"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:layout_toEndOf="@id/groupIcon"
                 android:layout_marginStart="20dp"
                 android:layout_centerVertical="true"
@@ -43,12 +43,13 @@
     </Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_messages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
         android:layout_above="@id/messageBox"
-        android:layout_marginTop="3dp"
-        android:id="@+id/chat_messages"/>
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="14dp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -70,13 +71,13 @@
             android:inputType="textMultiLine|textCapSentences"
             android:maxHeight="200dp"
             android:textColorHint="@android:color/darker_gray"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:cardCornerRadius="30dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:cardCornerRadius="22.5dp"
         app:cardBackgroundColor="#22701A"
         android:layout_alignBottom="@id/messageBox"
         android:layout_alignParentEnd="true"
@@ -87,10 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_send_24"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="11dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginBottom="13dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="6dp"
             />
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

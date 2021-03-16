@@ -122,6 +122,7 @@ public class ChatActivity extends AppCompatActivity{
                     chatData[i] = new ChatData(UserInfo.getUsername(),documentSnapshot.get("message"+(i+1)).toString());
                 }
                 chatData[0].setDateChanged(true);
+                //akshat@rete.com\t12602134521\tyourMessage//
                 for(int i=0;i<chatData.length-1;i++)
                 {
                     String t1,t2;
