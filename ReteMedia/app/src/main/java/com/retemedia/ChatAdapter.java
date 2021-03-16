@@ -1,6 +1,7 @@
 package com.retemedia;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
+import java.util.logging.Handler;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private ChatData[] chatData;
@@ -18,6 +20,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private Context context;
     private long time;
     private int day,month,year;
+    private int position;
     public ChatAdapter(ChatData[] chatData){this.chatData=chatData;}
     @NonNull
     @Override
@@ -29,24 +32,32 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        this.holder=holder;
-        String temp = chatData[position].getMessage();
+    public int getItemViewType(int position) {
+        return position;
+    }
 
-        //akshat@rete.com126021\t34521\tyourMessage//
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder,final int position) {
+        this.holder=holder;
+        holder.setIsRecyclable(false);
+        this.position=position;
+        String temp = chatData[position].getMessage();
+        //akshat@rete.com\t12602134521\tyourMessage//
 
         String timeString = temp.substring(temp.indexOf('\t')+1);
         timeString = timeString.substring(0,timeString.indexOf('\t'));
         time=Long.parseLong(timeString);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        if(calendar.get(Calendar.DAY_OF_MONTH)!=day||calendar.get(Calendar.MONTH)+1!=month|| calendar.get(Calendar.YEAR)!=year){
+        if(chatData[position].isDateChanged()){
             day=calendar.get(Calendar.DAY_OF_MONTH);
             month=calendar.get(Calendar.MONTH)+1;
             year=calendar.get(Calendar.YEAR);
-            holder.date_text.setText(day+"/"+month+"/"+calendar.get(Calendar.YEAR));
+            String date_to_set = day + "/" + month + "/" + calendar.get(Calendar.YEAR);
+            holder.date_text.setText(date_to_set);
+            holder.date.setVisibility(View.VISIBLE);
         }
-        else holder.date.setVisibility(View.GONE);
         String text = chatData[position].getMessage();
         text=text.substring(text.indexOf('\t')+1);
         text=text.substring(text.indexOf('\t')+1);
@@ -55,7 +66,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         message_time=message_time+calendar.get(Calendar.HOUR_OF_DAY)+":";
         if(calendar.get(Calendar.MINUTE)<10) message_time=message_time+"0";
         message_time=message_time+calendar.get(Calendar.MINUTE);
-        if(chatData[position].getMessage().substring(0,chatData[position].getMessage().indexOf('\t')).equals(chatData[position].getUsername()))
+        temp = chatData[position].getMessage();
+        temp=temp.substring(0,temp.indexOf('\t'));
+        if(text.length()<3) text=text+"   ";
+        if(temp.equals(chatData[position].getUsername()))
         {
             holder.received.setVisibility(View.GONE);
             holder.sent_message.setText(text);

@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,9 +32,10 @@ public class ChatActivity extends AppCompatActivity{
 
     private FirebaseFirestore firestore;
     private DocumentReference documentReference;
-    private EditText editText;
     private DatabaseReference databaseReference;
+    private EditText editText;
     private ChatData[] chatData;
+    private int message_count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +45,6 @@ public class ChatActivity extends AppCompatActivity{
         firestore = FirebaseFirestore.getInstance();
         documentReference = firestore.collection("Topics").document(getIntent().getStringExtra("name"));
         editText = findViewById(R.id.messageToSend);
-        databaseReference=FirebaseDatabase.getInstance().getReference(getIntent().getStringExtra("name"));
-        databaseReference.child(UserInfo.getUsername()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                loadMessages();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         loadMessages();
     }
 
@@ -63,10 +53,9 @@ public class ChatActivity extends AppCompatActivity{
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                int message_count;
                 try {
                     message_count = Integer.parseInt(documentSnapshot.get("count").toString());
-                } catch (Exception e) {
+                    } catch (Exception e) {
                     e.printStackTrace();
                     message_count=0;
                 }
@@ -75,18 +64,38 @@ public class ChatActivity extends AppCompatActivity{
                 {
                     map.put("message"+i,documentSnapshot.get("message"+i).toString());
                 }
-                if(editText.getText().toString().trim().length()>0) map.put("message"+(message_count+1),UserInfo.getUsername()+"\t"+
-                        System.currentTimeMillis()+"\t"+editText.getText().toString());
-                /*else{
-                    Toast.makeText(getApplicationContext(),"Can't send empty message",Toast.LENGTH_SHORT).show();
-                    return;
-                }*/
-                map.put("count",String.valueOf(message_count+1));
-                Log.println(Log.ASSERT,"message",UserInfo.getUsername()+"\t"+
-                        System.currentTimeMillis()+"\t"+editText.getText().toString());
-                documentReference.set(map);
-                loadMessages();
+                databaseReference =  FirebaseDatabase.getInstance().getReference(".info/serverTimeOffset");
+                final String message = editText.getText().toString();
                 editText.setText("");
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (message.trim().length() > 0) {
+                            FirebaseDatabase.getInstance().goOnline();
+                            map.put("message" + (message_count + 1), UserInfo.getUsername() + "\t" +
+                                    (System.currentTimeMillis() + snapshot.getValue(Long.class)) + "\t" + message);
+                            Log.println(Log.ASSERT, "offset", snapshot.getValue(Long.class).toString());
+                            FirebaseDatabase.getInstance().goOffline();
+                        }
+                        else {
+                            //Toast.makeText(getApplicationContext(), "Can't send empty message", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        map.put("count", String.valueOf(message_count + 1));
+                        documentReference.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                loadMessages();
+                            }
+                        });
+                        editText.setText("");
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
     }
@@ -112,17 +121,51 @@ public class ChatActivity extends AppCompatActivity{
                 {
                     chatData[i] = new ChatData(UserInfo.getUsername(),documentSnapshot.get("message"+(i+1)).toString());
                 }
+                chatData[0].setDateChanged(true);
+                for(int i=0;i<chatData.length-1;i++)
+                {
+                    String t1,t2;
+                    t1=chatData[i].getMessage();
+                    t2=chatData[i+1].getMessage();
+                    t1=t1.substring(t1.indexOf('\t')+1);
+                    t2=t2.substring(t2.indexOf('\t')+1);
+                    t1=t1.substring(0,t1.indexOf('\t'));
+                    t2=t2.substring(0,t2.indexOf('\t'));
+                    Calendar c1,c2;
+                    c1=Calendar.getInstance();
+                    c2=Calendar.getInstance();
+                    c1.setTimeInMillis(Long.parseLong(t1));
+                    c2.setTimeInMillis(Long.parseLong(t2));
+                    if(c1.get(Calendar.DAY_OF_YEAR)!=c2.get(Calendar.DAY_OF_YEAR)
+                            || c1.get(Calendar.YEAR)!=c2.get(Calendar.YEAR)) chatData[i+1].setDateChanged(true);
+                }
                 ChatAdapter adapter = new ChatAdapter(chatData);
-                Log.println(Log.ASSERT,"messages","loaded");
-                recyclerView.setVisibility(View.INVISIBLE);
                 recyclerView.setAdapter(adapter);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
-                        recyclerView.setVisibility(View.VISIBLE);
                     }
                 },200);
+            }
+        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        databaseReference =  FirebaseDatabase.getInstance().getReference(".info/serverTimeOffset");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                FirebaseDatabase.getInstance().goOnline();
+                Log.println(Log.ASSERT,"resumed_offset",snapshot.getValue(Long.class).toString());
+                FirebaseDatabase.getInstance().goOffline();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

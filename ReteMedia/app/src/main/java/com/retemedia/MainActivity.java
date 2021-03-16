@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                                 userType = "Employee";
                             }
                             Map<String, Object> info = new HashMap<>();
+                            if(userType==null||userType.equals("null")) userType="Employee";
                             info.put("Type", userType);
                             document.set(info);
                             UserInfo.setUsername(username);
