@@ -48,7 +48,17 @@ public class ChatActivity extends AppCompatActivity{
         firestore = FirebaseFirestore.getInstance();
         documentReference = firestore.collection("Topics").document(getIntent().getStringExtra("name"));
         editText = findViewById(R.id.messageToSend);
-        loadMessages();
+        FirebaseDatabase.getInstance().getReference().child(getIntent().getStringExtra("name")).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                loadMessages();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     public void sendMessage(View view)
     {
@@ -74,10 +84,8 @@ public class ChatActivity extends AppCompatActivity{
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (message.trim().length() > 0) {
-                            FirebaseDatabase.getInstance().goOnline();
                             map.put("message" + (message_count + 1), UserInfo.getUsername() + "\t" +
                                     (System.currentTimeMillis() + snapshot.getValue(Long.class)) + "\t" + message);
-                            FirebaseDatabase.getInstance().goOffline();
                         }
                         else {
                             //Toast.makeText(getApplicationContext(), "Can't send empty message", Toast.LENGTH_SHORT).show();
@@ -87,7 +95,7 @@ public class ChatActivity extends AppCompatActivity{
                         documentReference.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                loadMessages();
+                                FirebaseDatabase.getInstance().getReference().child(getIntent().getStringExtra("name")).setValue(System.currentTimeMillis()+"");
                             }
                         });
                         editText.setText("");
