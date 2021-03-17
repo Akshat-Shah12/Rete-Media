@@ -8,8 +8,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -37,6 +39,16 @@ public class Dashboard extends AppCompatActivity {
         prepareViewPager(viewPager,list);
         tabLayout.setupWithViewPager(viewPager);
     }
+
+    public void Signout(View view) {
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        finish();
+    }
+
+    public void createUser(View view) {
+        startActivity(new Intent(this,CreateUserActivity.class));
+    }
+
     class MainAdapter extends FragmentPagerAdapter{
 
         List<String> arrayList = new ArrayList<String>();;
@@ -85,4 +97,5 @@ public class Dashboard extends AppCompatActivity {
         }
         vp.setAdapter(adapter);
     }
+
 }
