@@ -80,6 +80,7 @@ public class AddPaymentActivity extends AppCompatActivity {
                 pay.put("trans"+(payment.length+1),final_amount+"\t"+final_pay);
                 pay.put("transaction",(payment.length+1)+"");
                 reference.set(pay);
+                finish();
             }
         });
     }

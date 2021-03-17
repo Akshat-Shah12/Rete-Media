@@ -68,7 +68,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         message_time=message_time+calendar.get(Calendar.MINUTE);
         temp = chatData[position].getMessage();
         temp=temp.substring(0,temp.indexOf('\t'));
-        if(text.length()<3) text=text+"   ";
+        if(text.length()<5) text=text+"     ";
         if(temp.equals(chatData[position].getUsername()))
         {
             holder.received.setVisibility(View.GONE);
