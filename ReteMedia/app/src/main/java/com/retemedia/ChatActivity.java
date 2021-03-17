@@ -60,6 +60,7 @@ public class ChatActivity extends AppCompatActivity{
             }
         });
     }
+
     public void sendMessage(View view)
     {
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -153,5 +154,11 @@ public class ChatActivity extends AppCompatActivity{
                 recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        loadMessages();
     }
 }

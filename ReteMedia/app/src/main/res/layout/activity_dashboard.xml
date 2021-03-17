@@ -11,10 +11,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFD027">//@android:color/holo_blue_dark
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="60dp"
-            android:src="@drawable/rete_media_logo"></ImageView>
+            android:src="@drawable/rete_media_logo"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"></ImageView>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/sign_out"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
+            android:text="New User"
+            android:textSize="10sp"
+            android:onClick="createUser"></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sign_out"
+            android:textSize="10sp"
+            android:background="@android:color/holo_red_dark"
+            android:textColor="@android:color/white"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Sign Out"
+            android:onClick="Signout"></Button>
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.tabs.TabLayout

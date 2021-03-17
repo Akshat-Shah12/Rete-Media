@@ -23,6 +23,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,10 +46,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         firestore = FirebaseFirestore.getInstance();
+        try {
+            FileInputStream inputStream=getApplicationContext().openFileInput("user.txt");
+            BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
+            username=bufferedReader.readLine();
+            password=bufferedReader.readLine();
+            editText=findViewById(R.id.LoginId);
+            editText.setText(username);
+            editText=findViewById(R.id.Password);
+            editText.setText(password);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //findViewById(R.id.submitBtn).setBackgroundColor(Color.parseColor("#1E88E5"));
     }
     public void forgotPassword(View view){
-
+        FirebaseAuth.getInstance().sendPasswordResetEmail(username).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(),"Email sent",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Check your username",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     public void submitBtn(View view){
         editText=findViewById(R.id.LoginId);
@@ -50,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
         editText=findViewById(R.id.Password);
         password= editText.getText().toString();
         ////
-        if(username.length()==0 && password.length()==0){
+        /*if(username.length()==0 && password.length()==0){
             Intent intent = new Intent(getApplicationContext(), AddPaymentActivity.class);
             startActivity(intent);
-        }
+        }*/
         ////
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if(username.trim().length()==0||password.trim().length()<6)
@@ -100,6 +132,24 @@ public class MainActivity extends AppCompatActivity {
                             info.put("Type", userType);
                             document.set(info);
                             UserInfo.setUsername(username);
+                            File details=new File(getApplicationContext().getFilesDir(),"user.txt");
+                            if(!details.exists()){
+                                try{
+                                    details.createNewFile();
+                                }catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            try {
+                                FileOutputStream outputStream=getApplicationContext().openFileOutput("user.txt",MODE_PRIVATE);
+                                outputStream.write((username+"\n"+password+"\n").getBytes());
+                                outputStream.close();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
                             Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                             intent.putExtra("type", "user1");
                             startActivity(intent);
