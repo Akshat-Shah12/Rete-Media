@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddGroupActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rete_media_logo"
+            android:layout_marginHorizontal="50dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="60dp"
+            android:background="@drawable/edittext"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:hint="Group Name"
+            android:paddingBottom="10dp"
+            android:inputType="text"
+            android:id="@+id/group_name"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="60dp"
+            android:background="@drawable/edittext"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:hint="Participants (Each on new line)"
+            android:paddingBottom="10dp"
+            android:paddingEnd="10dp"
+            android:id="@+id/group_participants"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:text="Submit"
+            android:onClick="createNewGroup"
+            android:textAlignment="center"
+            android:background="@drawable/submit_button"/>
+    </LinearLayout>
+</ScrollView>

@@ -64,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
         //findViewById(R.id.submitBtn).setBackgroundColor(Color.parseColor("#1E88E5"));
     }
     public void forgotPassword(View view){
+        editText=findViewById(R.id.LoginId);
+        username = editText.getText().toString();
+        if(username.trim().length()==0||!username.contains("@"))
+        {
+            Toast.makeText(getApplicationContext(),"Invalid username",Toast.LENGTH_SHORT).show();
+            return;
+        }
         FirebaseAuth.getInstance().sendPasswordResetEmail(username).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

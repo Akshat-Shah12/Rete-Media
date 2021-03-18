@@ -20,7 +20,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:hint="e.g Rs.500"
+        android:hint="e.g 500"
         android:id="@+id/amount"
         android:layout_below="@id/textAmount"
         android:background="@drawable/paymentedittext"
@@ -56,25 +56,36 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_alignTop="@id/button2"
-        android:text="Day of Payment"
+        android:text="Select date by clicking below"
+        android:textColor="@color/black"
         android:id="@+id/dateText"
         android:layout_marginTop="-30dp"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"/>
-    <Button
+    <TextView
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:onClick="handleDateButton"
         android:layout_marginTop="400dp"
+        android:textColor="@color/white"
+        android:background="@drawable/edittext"
+        android:paddingEnd="15dp"
         android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:paddingBottom="10dp"
         android:text="Date" />
-    <Button
+    <TextView
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:onClick="submitBtn"
         android:layout_marginTop="500dp"
+        android:background="@drawable/submit_button"
         android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textColor="@color/white"
         android:text="Submit" />
 
 
