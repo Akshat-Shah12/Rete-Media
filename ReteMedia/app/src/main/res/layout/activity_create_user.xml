@@ -34,12 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:id="@+id/password"
-        android:paddingBottom="10dp"
         android:hint="Password"
         android:background="@drawable/edittext"
         android:paddingBottom="10dp"></EditText>
-        android:background="@drawable/edittext"></EditText>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

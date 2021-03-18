@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android">
-
     <translate
         android:duration="300"
         android:fromXDelta="0"
         android:toXDelta="0"
-        android:fromYDelta="-1000"
-        android:toYDelta="0"/>
+        android:fromYDelta="0"
+        android:toYDelta="-1000"/>
     <scale
         android:duration="300"
-        android:fromXScale="0.4"
-        android:toXScale="1"
+        android:fromXScale="1"
+        android:toXScale="0.4"
         android:pivotY="50%"
         android:pivotX="50%"
-        android:fromYScale="0.4"
-        android:toYScale="1"/>
+        android:fromYScale="1"
+        android:toYScale="0.4"/>
     <alpha
         android:duration="300"
-        android:fromAlpha="0"
-        android:toAlpha="1"/>
+        android:fromAlpha="1"
+        android:toAlpha="0"/>
+
 </set>

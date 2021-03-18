@@ -89,4 +89,10 @@ public class CreateUserActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.no_anim,R.anim.hover_out);
+    }
 }

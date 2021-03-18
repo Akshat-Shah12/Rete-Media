@@ -88,6 +88,6 @@ public class AddPaymentActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.no_anim,R.anim.side_zoom_out);
+        overridePendingTransition(R.anim.fade_in,R.anim.side_zoom_out);
     }
 }

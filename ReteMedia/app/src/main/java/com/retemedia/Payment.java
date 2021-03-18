@@ -34,7 +34,7 @@ public class Payment extends Fragment {
             public void onClick(View v) {
                 Intent i=new Intent(context,AddPaymentActivity.class);
                 startActivity(i);
-                activity.overridePendingTransition(R.anim.side_zoom_in,R.anim.no_anim);
+                activity.overridePendingTransition(R.anim.side_zoom_in,R.anim.fade_out);
             }
         });
         PaymentData data[] = new PaymentData[10];
