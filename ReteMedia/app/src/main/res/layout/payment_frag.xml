@@ -34,7 +34,7 @@
         android:layout_marginBottom="10dp"
         android:onClick="paymentAdd"
         app:cardBackgroundColor="#3D1F6E"
-        app:cardCornerRadius="40dp">
+        app:cardCornerRadius="30dp">
 
         <ImageView
             android:layout_width="match_parent"

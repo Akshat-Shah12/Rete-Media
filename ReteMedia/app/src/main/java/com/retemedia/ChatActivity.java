@@ -159,6 +159,11 @@ public class ChatActivity extends AppCompatActivity{
     @Override
     protected void onRestart() {
         super.onRestart();
+        if(UserInfo.getUsername()==null)
+        {
+            finish();
+            return;
+        }
         loadMessages();
     }
 }

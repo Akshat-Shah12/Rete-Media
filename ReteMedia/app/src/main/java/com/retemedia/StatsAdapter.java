@@ -34,6 +34,7 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.ViewHolder> 
         this.holder=holder;
         holder.name.setText(data[position].getName());
         holder.jobTitle.setText(data[position].getJobTitle());
+        holder.time.setVisibility(View.GONE);
     }
 
     @Override
@@ -42,11 +43,12 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView name,jobTitle,imageUrl;
+        TextView name,jobTitle,imageUrl,time;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.topic_title);
             jobTitle=itemView.findViewById(R.id.message);
+            time=itemView.findViewById(R.id.time_text);
             //imageUrl=itemView.findViewById(R.id.profile_image);
         }
     }

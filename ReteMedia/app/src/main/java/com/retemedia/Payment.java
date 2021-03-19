@@ -1,5 +1,6 @@
 package com.retemedia;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,10 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Payment extends Fragment {
     private Context context;
+    private Activity activity;
 
-    public Payment(Context context)
+    public Payment(Context context, Activity activity)
     {
         this.context = context;
+        this.activity = activity;
     }
     @Nullable
     @Override
@@ -31,6 +34,7 @@ public class Payment extends Fragment {
             public void onClick(View v) {
                 Intent i=new Intent(context,AddPaymentActivity.class);
                 startActivity(i);
+                activity.overridePendingTransition(R.anim.side_zoom_in,R.anim.fade_out);
             }
         });
         PaymentData data[] = new PaymentData[10];

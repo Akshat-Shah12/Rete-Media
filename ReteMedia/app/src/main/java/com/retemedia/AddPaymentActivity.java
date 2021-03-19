@@ -84,4 +84,10 @@ public class AddPaymentActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in,R.anim.side_zoom_out);
+    }
 }

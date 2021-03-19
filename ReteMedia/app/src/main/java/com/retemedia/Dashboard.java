@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,12 +42,14 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void Signout(View view) {
+        new File(getApplicationContext().getFilesDir(),"user.txt").delete();
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
         finish();
     }
 
     public void createUser(View view) {
         startActivity(new Intent(this,CreateUserActivity.class));
+        overridePendingTransition(R.anim.hover_in,R.anim.no_anim);
     }
 
     class MainAdapter extends FragmentPagerAdapter{
@@ -90,8 +93,8 @@ public class Dashboard extends AppCompatActivity {
         for(int i = 0; i < list.size(); i++)
         {
             Bundle bundle = new Bundle();
-            if(list.get(i).equals("Chat")) adapter.addFragment(new ChatFragment(getApplicationContext()),list.get(i));
-            else if(list.get(i).equals("Payment")) adapter.addFragment(new Payment(getApplicationContext()),list.get(i));
+            if(list.get(i).equals("Chat")) adapter.addFragment(new ChatFragment(getApplicationContext(),this),list.get(i));
+            else if(list.get(i).equals("Payment")) adapter.addFragment(new Payment(getApplicationContext(),this),list.get(i));
             else if(list.get(i).equals("Stats")) adapter.addFragment(new Stats(getApplicationContext()),list.get(i));
             else adapter.addFragment(new MainFragment(list.get(i)),(String) list.get(i));
         }
