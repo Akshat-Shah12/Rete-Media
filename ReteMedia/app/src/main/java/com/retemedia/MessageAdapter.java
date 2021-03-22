@@ -68,6 +68,41 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         });
     }
 
+    public void addMessageGroup(MessageData message)
+    {
+        MessageData[] tempData = new MessageData[messageData.length+1];
+        System.arraycopy(messageData, 0, tempData, 0, messageData.length);
+        tempData[tempData.length-1] = message;
+        for(int i=0;i<tempData.length-1;i++)
+        {
+            for(int j=0;j<tempData.length-1-i;j++)
+            {
+                if(tempData[j].getTime()<tempData[j+1].getTime())
+                {
+                    MessageData temp = tempData[j];
+                    tempData[j] = tempData[j+1];
+                    tempData[j+1] = temp;
+                }
+            }
+        }
+        messageData=tempData;
+        notifyDataSetChanged();
+    }
+    public MessageData[] getMessageData(){return messageData;}
+    public void setMessageData(MessageData[] messages)
+    {
+        for(int i=0;i<messages.length-1;i++) {
+            for (int j = 0; j < messages.length - 1 - i; j++) {
+                if (messages[j].getTime() < messages[j + 1].getTime()) {
+                    MessageData temp = messages[j];
+                    messages[j] = messages[j + 1];
+                    messages[j + 1] = temp;
+                }
+            }
+        }
+        this.messageData = messages;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return messageData.length;

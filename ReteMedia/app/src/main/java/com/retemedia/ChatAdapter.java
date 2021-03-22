@@ -90,10 +90,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void addChat(ChatData chat)
     {
         ChatData[] tempData = new ChatData[chatData.length+1];
-        for(int i=0;i<chatData.length;i++)
-        {
-            tempData[i] = chatData[i];
-        }
+        System.arraycopy(chatData, 0, tempData, 0, chatData.length);
         tempData [tempData.length-1] = chat;
         chatData = tempData;
         notifyDataSetChanged();
