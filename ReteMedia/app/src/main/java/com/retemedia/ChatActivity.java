@@ -76,6 +76,11 @@ public class ChatActivity extends AppCompatActivity{
         editText.setText("");
         if(message.trim().length()==0) return;
         ChatAdapter chatAdapter = (ChatAdapter) recyclerView.getAdapter();
+        if(chatAdapter==null)
+        {
+            chatAdapter = new ChatAdapter(new ChatData[0]);
+            recyclerView.setAdapter(chatAdapter);
+        }
         chatAdapter.addChat(new ChatData(UserInfo.getUsername(),UserInfo.getUsername() + "\t" +
                 System.currentTimeMillis() + "\t" + message));
         recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);

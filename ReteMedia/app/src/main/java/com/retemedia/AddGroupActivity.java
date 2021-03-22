@@ -32,6 +32,13 @@ public class AddGroupActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Invalid data",Toast.LENGTH_SHORT).show();
             return;
         }
+        for(int i=0;i<31;i++){
+            char c = (char) i;
+            if(name.contains(String.valueOf((char) i))){
+                Toast.makeText(getApplicationContext(),"Group Name cannot contain special characters",Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
         do
         {
             String temp = participants;
