@@ -35,8 +35,8 @@ public class Dashboard extends AppCompatActivity {
         list = new ArrayList<String>();
         list.add("Chat");
         list.add("Work");
-        list.add("Stats");
-        list.add("Payment");
+        if(type.equals("Manager")) list.add("Stats");
+        if(type.equals("Client")||type.equals("Manager")) list.add("Payment");
         prepareViewPager(viewPager,list);
         tabLayout.setupWithViewPager(viewPager);
     }

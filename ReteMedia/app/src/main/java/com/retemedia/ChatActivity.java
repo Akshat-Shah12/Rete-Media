@@ -66,34 +66,43 @@ public class ChatActivity extends AppCompatActivity{
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
                 try {
-                    message_count = Integer.parseInt(documentSnapshot.get("count").toString());
-                    } catch (Exception e) {
-                    e.printStackTrace();
-                    message_count=0;
+                    recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+                } catch (Exception exception) {
+
                 }
-                Map<String,Object> map = new HashMap<>();
-                for(int i=1;i<=message_count;i++)
-                {
-                    map.put("message"+i,documentSnapshot.get("message"+i).toString());
+                Map<String,Object> map = null;
+                try {
+                    map=(Map<String, Object>) documentSnapshot.get("Chats");
+                    if(map==null)
+                    {
+                        map=new HashMap<>();
+                        message_count=0;
+                    }
+                    message_count= Integer.parseInt((String)map.get("count"));
+                } catch (Exception exception) {
+                    message_count=0;
                 }
                 databaseReference =  FirebaseDatabase.getInstance().getReference(".info/serverTimeOffset");
                 final String message = editText.getText().toString();
                 editText.setText("");
+                Map<String, Object> finalMap = map;
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (message.trim().length() > 0) {
-                            map.put("message" + (message_count + 1), UserInfo.getUsername() + "\t" +
+                            finalMap.put("message" + (message_count + 1), UserInfo.getUsername() + "\t" +
                                     (System.currentTimeMillis() + snapshot.getValue(Long.class)) + "\t" + message);
+                            finalMap.put("count",message_count+1);
                         }
                         else {
                             //Toast.makeText(getApplicationContext(), "Can't send empty message", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        map.put("count", String.valueOf(message_count + 1));
-                        documentReference.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        finalMap.put("count", String.valueOf(message_count + 1));
+                        Map<String,Object> mapToPut = new HashMap<>();
+                        mapToPut.put("Chats",finalMap);
+                        documentReference.set(mapToPut).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 FirebaseDatabase.getInstance().getReference().child(getIntent().getStringExtra("name")).setValue(System.currentTimeMillis()+"");
@@ -121,14 +130,12 @@ public class ChatActivity extends AppCompatActivity{
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                try {
-                    chatData = new ChatData[Integer.parseInt(documentSnapshot.get("count").toString())];
-                } catch (Exception e) {
-                    chatData=new ChatData[0];
-                }
+                    Map<String,Object> map = (Map<String, Object>) documentSnapshot.get("Chats");
+                    if(map==null || !map.containsKey("count")) return;
+                    chatData = new ChatData[ Integer.parseInt((String)map.get("count"))];
                 for(int i=0;i<chatData.length;i++)
                 {
-                    chatData[i] = new ChatData(UserInfo.getUsername(),documentSnapshot.get("message"+(i+1)).toString());
+                    chatData[i] = new ChatData(UserInfo.getUsername(),(String) map.get("message"+(i+1)));
                 }
                 if(chatData.length>0) chatData[0].setDateChanged(true);
                 //akshat@rete.com\t12602134521\tyourMessage//
