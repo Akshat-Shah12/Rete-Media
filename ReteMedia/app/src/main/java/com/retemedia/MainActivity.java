@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                            intent.putExtra("type", "user1");
+                            intent.putExtra("type", userType);
                             startActivity(intent);
                             overridePendingTransition(R.anim.right_start,R.anim.right_end);
                             finish();

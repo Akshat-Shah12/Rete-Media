@@ -21,7 +21,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ChatFragment extends Fragment {
     private Context context;
@@ -90,14 +92,18 @@ public class ChatFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String lastMessage = "No Messages";
                 int count = 0;
-                try {
-                    count = Integer.parseInt(documentSnapshot.getString("count"));
+                Map<String, Object> map = (Map<String, Object>) documentSnapshot.get("Chats");
+                try{
+                    count=Integer.parseInt((String)map.get("count"));
                 } catch (Exception e) {
-                    data[position] = new MessageData("abc",string[position],"No messages yet",System.currentTimeMillis());
-                    getMessagesFromServer(string,position+1);
+                    count=0;
+                }
+                if(map==null||count==0) {
+                    data[position] = new MessageData("abc", string[position], "No messages yet", System.currentTimeMillis());
+                    getMessagesFromServer(string, position + 1);
                     return;
                 }
-                lastMessage = documentSnapshot.getString("message"+count);
+                lastMessage = (String) map.get("message"+count);
                 String sender = lastMessage.substring(0,lastMessage.indexOf('@'));
                 sender = sender.substring(0,1).toUpperCase()+sender.substring(1);
                 lastMessage = lastMessage.substring(lastMessage.indexOf('\t')+1);
