@@ -177,6 +177,10 @@ public class ChatFragment extends Fragment {
                 } catch (Exception e) {
                     count=0;
                 }
+                for(int i=0;i<messageDataList.size();i++)
+                {
+                    if(messageDataList.get(i).getTitle().equals(string[position])) messageDataList.remove(i);
+                }
                 if(map==null||count==0) {
                     messageDataList.add(new MessageData("abc", string[position], "No messages yet", System.currentTimeMillis()));
                     getMessagesFromServer(string, position + 1);
