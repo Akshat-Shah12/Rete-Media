@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity{
@@ -43,7 +44,8 @@ public class ChatActivity extends AppCompatActivity{
         setContentView(R.layout.activity_chat);
         recyclerView = findViewById(R.id.chat_messages);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));    TextView textView = findViewById(R.id.TopicText);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        TextView textView = findViewById(R.id.TopicText);
         textView.setText(getIntent().getStringExtra("name"));
         firestore = FirebaseFirestore.getInstance();
         documentReference = firestore.collection("Topics").document(getIntent().getStringExtra("name"));
@@ -63,6 +65,20 @@ public class ChatActivity extends AppCompatActivity{
 
     public void sendMessage(View view)
     {
+        if(UserInfo.getUsername()==null)
+        {
+            Toast.makeText(getApplicationContext(),"Please sign in",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+            return;
+        }
+        final String message = editText.getText().toString();
+        editText.setText("");
+        if(message.trim().length()==0) return;
+        ChatAdapter chatAdapter = (ChatAdapter) recyclerView.getAdapter();
+        chatAdapter.addChat(new ChatData(UserInfo.getUsername(),UserInfo.getUsername() + "\t" +
+                System.currentTimeMillis() + "\t" + message));
+        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -84,8 +100,6 @@ public class ChatActivity extends AppCompatActivity{
                     message_count=0;
                 }
                 databaseReference =  FirebaseDatabase.getInstance().getReference(".info/serverTimeOffset");
-                final String message = editText.getText().toString();
-                editText.setText("");
                 Map<String, Object> finalMap = map;
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -130,9 +144,9 @@ public class ChatActivity extends AppCompatActivity{
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    Map<String,Object> map = (Map<String, Object>) documentSnapshot.get("Chats");
-                    if(map==null || !map.containsKey("count")) return;
-                    chatData = new ChatData[ Integer.parseInt((String)map.get("count"))];
+                Map<String,Object> map = (Map<String, Object>) documentSnapshot.get("Chats");
+                if(map==null || !map.containsKey("count")) return;
+                chatData = new ChatData[ Integer.parseInt((String)map.get("count"))];
                 for(int i=0;i<chatData.length;i++)
                 {
                     chatData[i] = new ChatData(UserInfo.getUsername(),(String) map.get("message"+(i+1)));

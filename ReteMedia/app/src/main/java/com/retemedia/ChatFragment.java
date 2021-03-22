@@ -29,24 +29,33 @@ public class ChatFragment extends Fragment {
     private Context context;
     private Activity activity;
     private MessageData[] data;
+    private String[] group;
     private View layout;
+    private String type="no_type";
     public ChatFragment(){}
-    public ChatFragment(Context context, Activity activity)
+    public ChatFragment(Context context, Activity activity, String type)
     {
         this.context = context;
         this.activity = activity;
+        this.type=type;
     }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chat, container, false);
         layout = view;
+        if(!type.equals("Manager")) view.findViewById(R.id.add_group).setVisibility(View.GONE);
         if(UserInfo.getUsername()==null) return view;
         FirebaseFirestore.getInstance().collection("Group Data").document(UserInfo.getUsername())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String[] group = new String[Integer.parseInt(documentSnapshot.getString("count"))];
+                try {
+                    group = new String[Integer.parseInt(documentSnapshot.getString("count"))];
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    group=new String[0];
+                }
                 for(int i=0;i< group.length;i++)
                 {
                     group[i] = documentSnapshot.getString("group"+(i+1));
@@ -64,6 +73,13 @@ public class ChatFragment extends Fragment {
         });
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(group!=null) getMessagesFromServer(group,0);
+    }
+
     private void getMessagesFromServer(String[] string, int position){
         if(position>=string.length)
         {
@@ -110,7 +126,6 @@ public class ChatFragment extends Fragment {
                 String messageTime = lastMessage.substring(0,lastMessage.indexOf('\t'));
                 lastMessage = lastMessage.substring(lastMessage.indexOf('\t')+1);
                 if(sender.toLowerCase().equals(UserInfo.getUsername().substring(0,UserInfo.getUsername().indexOf('@')))) sender="You";
-                if(lastMessage.length()>20) lastMessage=lastMessage.substring(0,18)+"...";
                 data[position] = new MessageData("abc",
                         string[position],
                         sender+" : "+lastMessage.replace('\n',' '),

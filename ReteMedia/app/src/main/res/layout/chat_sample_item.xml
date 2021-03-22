@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
             android:layout_width="60dp"
             android:layout_height="60dp"
             app:cardCornerRadius="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_margin="10dp"
             android:id="@+id/chat_card">
                 <ImageView
                     android:layout_width="match_parent"
@@ -28,32 +30,39 @@
             android:layout_alignTop="@id/chat_card"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginHorizontal="10dp"
             android:text="Sample Topic"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_toStartOf="@id/time_text"
             android:id="@+id/topic_title"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/message"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_below="@id/topic_title"
             android:layout_marginTop="5dp"
-            android:layout_toStartOf="@id/time_text"
             android:layout_alignStart="@id/topic_title"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
             android:text="Message from admin"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="12dp"
+            android:layout_alignBottom="@id/topic_title"
+            android:layout_marginEnd="12dp"
             android:text="00:00"
             android:id="@+id/time_text"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_toEndOf="@id/chat_card"
-            android:layout_marginEnd="6dp"
+            android:layout_height="0.3dp"
+            android:layout_alignStart="@id/topic_title"
+            android:layout_marginEnd="12dp"
             android:background="@android:color/darker_gray"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="1dp"/>

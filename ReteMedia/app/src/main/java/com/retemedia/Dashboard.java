@@ -37,6 +37,10 @@ public class Dashboard extends AppCompatActivity {
         list.add("Work");
         if(type.equals("Manager")) list.add("Stats");
         if(type.equals("Client")||type.equals("Manager")) list.add("Payment");
+        if(!type.equals("Manager"))
+        {
+            findViewById(R.id.new_user).setVisibility(View.GONE);
+        }
         prepareViewPager(viewPager,list);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -93,7 +97,7 @@ public class Dashboard extends AppCompatActivity {
         for(int i = 0; i < list.size(); i++)
         {
             Bundle bundle = new Bundle();
-            if(list.get(i).equals("Chat")) adapter.addFragment(new ChatFragment(getApplicationContext(),this),list.get(i));
+            if(list.get(i).equals("Chat")) adapter.addFragment(new ChatFragment(getApplicationContext(),this,type),list.get(i));
             else if(list.get(i).equals("Payment")) adapter.addFragment(new Payment(getApplicationContext(),this),list.get(i));
             else if(list.get(i).equals("Stats")) adapter.addFragment(new Stats(getApplicationContext()),list.get(i));
             else adapter.addFragment(new MainFragment(list.get(i)),(String) list.get(i));
@@ -101,4 +105,16 @@ public class Dashboard extends AppCompatActivity {
         vp.setAdapter(adapter);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(UserInfo.getUsername()==null)
+        {
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            finish();
+            return;
+        }
+        //prepareViewPager(viewPager,list);
+        //tabLayout.setupWithViewPager(viewPager);
+    }
 }

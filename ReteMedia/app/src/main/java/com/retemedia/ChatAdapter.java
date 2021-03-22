@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -68,7 +69,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         message_time=message_time+calendar.get(Calendar.MINUTE);
         temp = chatData[position].getMessage();
         temp=temp.substring(0,temp.indexOf('\t'));
-        if(text.length()<5) text=text+"     ";
         if(temp.equals(chatData[position].getUsername()))
         {
             holder.received.setVisibility(View.GONE);
@@ -87,6 +87,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }
     }
 
+    public void addChat(ChatData chat)
+    {
+        ChatData[] tempData = new ChatData[chatData.length+1];
+        for(int i=0;i<chatData.length;i++)
+        {
+            tempData[i] = chatData[i];
+        }
+        tempData [tempData.length-1] = chat;
+        chatData = tempData;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return chatData.length;
